@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'app',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
 ]
 
 MIDDLEWARE = [
@@ -102,6 +103,18 @@ DATABASES = {
     }
 }
 
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {'min_length': 8},
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -144,10 +157,12 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(days=25),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-    "ROTATE_REFRESH_TOKENS": False,
-    "BLACKLIST_AFTER_ROTATION": False,
+ "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),  # Shorter lifetime for access tokens
+"REFRESH_TOKEN_LIFETIME": timedelta(days=7),    # Longer lifetime for refresh tokens
+
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+
     "UPDATE_LAST_LOGIN": False,
 
     "ALGORITHM": "HS256",
@@ -187,7 +202,7 @@ SIMPLE_JWT = {
 # EMAIL_HOST='smtpout.secureserver.net'
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_HOST_USER='sakshivyavaharerk10@gmail.com'
-EMAIL_HOST_PASSWORD='gofa wgql qeso bidc'
+EMAIL_HOST_PASSWORD='isdq ihog fyid wtpu'
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
 EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
