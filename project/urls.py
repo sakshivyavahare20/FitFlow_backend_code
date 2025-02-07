@@ -21,4 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/',include('app.urls')),
     path('api/', include('timer.urls')),  # Include URLs from the timer app
+    path('fitness/',include('fitness.urls')),
+    path('nutrition/',include('nutrition.urls')),
+    
 ]
